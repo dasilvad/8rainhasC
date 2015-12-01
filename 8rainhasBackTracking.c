@@ -14,14 +14,15 @@ int diagonalSecundaria[15];
 //a linha nunca se repetira, portanto nao precisa testar ela. Portanto, somente a coluna e diagonais principais serao testadas
 int posicaoValida(int linha, int coluna){
 
-    if (colunas[coluna] == 0 && diagonalPrincipal[linha+coluna-2] == 0 && diagonalSecundaria[linha-coluna+7] == 0){
+    if (colunas[coluna] == 0 && diagonalPrincipal[linha+coluna-2] == 0
+         && diagonalSecundaria[linha-coluna+7] == 0){
         return 1;
     }else{
         return 0;
     }
 }
 
-int queen(int linha){
+int posicionarRainha(int linha){
 
     int coluna;
     if (linha <= 8){//tenta colocar uma rainha ate que nao tenha linha mais no tabuleiro
@@ -34,8 +35,8 @@ int queen(int linha){
                 diagonalPrincipal[linha+coluna - 2] = 1;
                 diagonalSecundaria[linha-coluna+7] = 1;
 
-                if (queen(linha+1) == 0){
-                    return 0;//coloca uma outra rainha em uma proxima linha
+                if (posicionarRainha(linha+1) == 0){
+                    return 0;
                 }
                 colunas[coluna] = 0;
                 posicao[linha] = 0;
@@ -84,7 +85,7 @@ void imprimirTabuleiro(){
 
 int main(){
     inicializarVetores();
-    queen(1);
+    posicionarRainha(1);
     imprimirTabuleiro();
     return 0;
 }
